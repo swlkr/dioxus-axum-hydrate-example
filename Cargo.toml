@@ -1,0 +1,7 @@
+[workspace]
+members = ["frontend", "backend"]
+
+[workspace.dependencies]
+frontend = { path = "frontend" }
+
+dioxus = "0.3"

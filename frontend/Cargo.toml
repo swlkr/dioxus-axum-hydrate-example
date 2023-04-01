@@ -1,0 +1,17 @@
+[package]
+name = "frontend"
+version = "0.1.0"
+authors = ["Sean Walker <swlkr.rbl@gmail.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = "0.3"
+dioxus-web = "0.3"
+
+log = "0.4.6"
+
+# WebAssembly Debug
+wasm-logger = "0.2.0"
+console_error_panic_hook = "0.1.7"
