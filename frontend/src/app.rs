@@ -1,12 +1,11 @@
 use dioxus::prelude::*;
 
 pub fn app(cx: Scope) -> Element {
-    cx.render(rsx! (
-        div {
-            style: "text-align: center;",
-            h1 { "🌗 Dioxus 🚀" }
-            h3 { "Frontend that scales." }
-            p { "Dioxus is a portable, performant, and ergonomic framework for building cross-platform user interfaces in Rust." }
-        }
-    ))
+    let mut count = use_state(&cx, || 0);
+
+    cx.render(rsx! {
+        h1 { "Count: {count}" }
+        button { onclick: move |_| count += 1, "+" }
+        button { onclick: move |_| count -= 1, "-" }
+    })
 }

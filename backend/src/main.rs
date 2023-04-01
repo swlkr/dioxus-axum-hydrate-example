@@ -6,7 +6,7 @@ use axum::{
     Router,
 };
 use dioxus::prelude::*;
-use frontend::app;
+use frontend::app::app;
 use std::{env, net::SocketAddr};
 use tokio::fs;
 use tower_http::services::ServeDir;
@@ -39,9 +39,9 @@ async fn app_endpoint() -> Html<String> {
         .unwrap();
     let (prefix, suffix) = index.split_once(r#"<div id="main">"#).unwrap();
 
-    let mut app = VirtualDom::new(app::app);
+    let mut app = VirtualDom::new(app);
     let _ = app.rebuild();
 
-    let html = dioxus_ssr::render(&app);
+    let html = dioxus_ssr::pre_render(&app);
     Html(format!(r#"{prefix}<div id="main">{html}{suffix}"#))
 }
