@@ -19,7 +19,16 @@ async fn main() -> Result<()> {
     let addr: SocketAddr = env::var("SERVER_ADDR")?.parse()?;
     println!("listening on http://{}", addr);
 
-    let serve_dir = get_service(ServeDir::new(ASSETS)).handle_error(|_| async move {
+    let frontend_mode = match env::var("FRONTEND_MODE") {
+        Ok(mode) => mode,
+        Err(_) => String::from("debug"),
+    };
+    let serve_dir_path = if frontend_mode == "release" {
+        DIST
+    } else {
+        ASSETS
+    };
+    let serve_dir = get_service(ServeDir::new(serve_dir_path)).handle_error(|_| async move {
         (StatusCode::INTERNAL_SERVER_ERROR, "Something went wrong...")
     });
     let app = Router::new()
